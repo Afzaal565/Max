@@ -42,10 +42,10 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Company $company)
-    {
-        return view('company.show', compact('company'));
-    }
+    // public function show(Company $company)
+    // {
+    //     return view('company.show', compact('company'));
+    // }
 
     /**
      * Show the form for editing the specified resource.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
+use App\Models\{Employee, Company};
 use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeRequest;
 
@@ -13,8 +13,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $companies = Company::paginate(10);
-        return view('company.index', compact('companies'));
+        $employees = Employee::paginate(10);
+        return view('employee.index', compact('employees'));
     }
 
     /**
@@ -22,7 +22,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('company.create');
+        $companies = Company::all()->pluck('name', 'id');
+        return view('employee.create', compact('companies'));
     }
 
     /**
@@ -31,8 +32,8 @@ class EmployeeController extends Controller
     public function store(EmployeeRequest $request)
     {
         $inputs = $request->validated();
-        $company = Company::create($inputs);
-        return redirect()->route('company.index');
+        $employee = Employee::create($inputs);
+        return redirect()->route('employees.index');
     }
 
     /**
@@ -40,7 +41,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('company.show', compact('company'));
+        return view('employee.show', compact('company'));
     }
 
     /**
@@ -48,7 +49,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('company.create', company('company'));
+        $companies = Company::all()->pluck('name', 'id');
+        return view('employee.edit', compact('employee', 'companies'));
     }
 
     /**
@@ -57,8 +59,8 @@ class EmployeeController extends Controller
     public function update(EmployeeRequest $request, Employee $employee)
     {
         $inputs = $request->validated();
-        $company->update($inputs);
-        return redirect()->route('company.index');
+        $employee->update($inputs);
+        return redirect()->route('employees.index');
     }
 
     /**
@@ -66,7 +68,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $company->delete();
-        return redirect()->route('company.index');
+        $employee->delete();
+        return redirect()->route('employees.index');
     }
 }

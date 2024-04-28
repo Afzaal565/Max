@@ -4,9 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Models\Company;
+use App\Models\Employee;
 
-class CompanyRequest extends FormRequest
+
+class EmployeeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,15 +28,15 @@ class CompanyRequest extends FormRequest
             $email = null;
         }
         else {
-            $email = Rule::unique(Company::class);
+            $email = Rule::unique(Employee::class);
         }
+
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'logo' => ['image','mimes:jpg,png,jpeg', 
-            'dimensions:min_width=50,min_height=50,max_width=1000,max_height=1000', 
-            'max:2048'],
+            'company_id' => ['required', Rule::exists('companies', 'id'), 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', $email],
-            'description' => ['string', 'max:10000']
+            'phone' => ['string', 'max:20']
         ];
     }
 }

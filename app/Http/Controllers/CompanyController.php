@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRequest;
-// use Illuminate\Http\RedirectResponse;
-// use Illuminate\Support\Facades\Auth;
-// use Illuminate\Support\Facades\Redirect;
-// use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
@@ -35,8 +31,12 @@ class CompanyController extends Controller
     public function store(CompanyRequest $request)
     {
         $inputs = $request->validated();
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('company', 'public');
+            $inputs['logo'] = $logoPath;
+        }
         $company = Company::create($inputs);
-        return redirect()->route('company.index');
+        return redirect()->route('companies.index');
     }
 
     /**
@@ -52,7 +52,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        return view('company.create', company('company'));
+        return view('company.edit', compact('company'));
     }
 
     /**
@@ -61,8 +61,12 @@ class CompanyController extends Controller
     public function update(CompanyRequest $request, Company $company)
     {
         $inputs = $request->validated();
+        if ($request->hasFile('logo')) {
+            $logoPath = $request->file('logo')->store('company', 'public');
+            $inputs['logo'] = $logoPath;
+        }
         $company->update($inputs);
-        return redirect()->route('company.index');
+        return redirect()->route('companies.index');
     }
 
     /**
@@ -71,6 +75,6 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
-        return redirect()->route('company.index');
+        return redirect()->route('companies.index');
     }
 }

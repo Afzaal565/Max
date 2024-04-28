@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\{ProfileController, CompanyController};
+use App\Http\Controllers\{ProfileController, CompanyController, EmployeeController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('sample');
+});
+
+Route::get('/bootstrap', function () {
+    return view('layouts.admin');
 });
 
 Route::get('/dashboard', function () {

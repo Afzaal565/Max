@@ -1,6 +1,9 @@
 <x-admin-layout>
     <x-slot name="header">
-        Add New Employee
+        <div class="d-flex justify-content-between">
+            <h3>Edit Employee</h3>
+            <a class="btn btn-primary" href="{{ route('employees.index') }}">View All</a>
+        </div>
     </x-slot>
     <div class="container">
         <div class="card">
@@ -8,7 +11,6 @@
                 <h3>Employee Form</h3>
             </div>
             <div class="card-body">
-                {{ $errors }}
                 <form class="row g-3" action="{{ route('employees.update', $employee->id) }}" method="POST">
                     @csrf
                     @method('PUT')

@@ -4,7 +4,7 @@ use App\Http\Controllers\{ProfileController, CompanyController, EmployeeControll
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('sample');
+    return view('welcome');
 });
 
 Route::get('/bootstrap', function () {

@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-slot name="header">
-        Company list page
+        <h3>Company list page</h3>
     </x-slot>
     <div class="container">
         <div class="card">

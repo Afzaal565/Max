@@ -1,11 +1,14 @@
 <x-admin-layout>
     <x-slot name="header">
-        Add New Company
+        <div class="d-flex justify-content-between">
+            <h3>Add New Company</h3>
+            <a class="btn btn-primary" href="{{ route('companies.index') }}">View All</a>
+        </div>
     </x-slot>
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h3>Company Form</h3>
+                <h4>Company Form</h4>
             </div>
             <div class="card-body">
                 <form class="row g-3" action="{{ route('companies.store') }}" method="POST" enctype="multipart/form-data" >

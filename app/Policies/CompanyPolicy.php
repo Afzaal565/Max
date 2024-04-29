@@ -13,7 +13,7 @@ class CompanyPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('Company list') ? true : false;
     }
 
     /**
@@ -21,7 +21,7 @@ class CompanyPolicy
      */
     public function view(User $user, Company $company): bool
     {
-        //
+        return $user->hasPermissionTo('Company view') ? true : false;
     }
 
     /**
@@ -29,7 +29,7 @@ class CompanyPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionTo('Company create') ? true : false;
     }
 
     /**
@@ -37,7 +37,7 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company): bool
     {
-        //
+        return $user->hasPermissionTo('Company edit') ? true : false;
     }
 
     /**
@@ -45,22 +45,23 @@ class CompanyPolicy
      */
     public function delete(User $user, Company $company): bool
     {
-        //
+        return $user->hasPermissionTo('Company delete') ? true : false;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Company $company): bool
-    {
-        //
-    }
+    // public function restore(User $user, Company $company): bool
+    // {
+    //     return $user->hasPermissionTo('Company restore') ? true : false;
+    // }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Company $company): bool
-    {
-        //
-    }
+    // public function forceDelete(User $user, Company $company): bool
+    // {
+    //     return $user->hasPermissionTo('Company permanent delete') ? true : false;
+    // }
+
 }

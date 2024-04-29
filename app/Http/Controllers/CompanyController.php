@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRequest;
+use Illuminate\Support\Facades\Gate;
+
 
 class CompanyController extends Controller
 {
@@ -13,6 +15,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Company::class);
         $companies = Company::paginate(10);
         return view('company.index', compact('companies'));
     }
@@ -22,6 +25,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Company::class);
         return view('company.create');
     }
 
@@ -30,6 +34,7 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
+        Gate::authorize('create', Company::class);
         $inputs = $request->validated();
         if ($request->hasFile('logo')) {
             $logoPath = $request->file('logo')->store('company', 'public');
@@ -52,6 +57,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
+        Gate::authorize('update', $company);
         return view('company.edit', compact('company'));
     }
 
@@ -60,6 +66,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyRequest $request, Company $company)
     {
+        Gate::authorize('update', $company);
         $inputs = $request->validated();
         if ($request->hasFile('logo')) {
             $logoPath = $request->file('logo')->store('company', 'public');
@@ -74,6 +81,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
+        Gate::authorize('delete', $company);
         $company->delete();
         return redirect()->route('companies.index');
     }

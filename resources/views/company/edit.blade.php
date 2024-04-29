@@ -1,6 +1,9 @@
 <x-admin-layout>
     <x-slot name="header">
-        Add New Company
+        <div class="d-flex justify-content-between">
+            <h3>Edit Company</h3>
+            <a class="btn btn-primary" href="{{ route('companies.index') }}">View All</a>
+        </div>
     </x-slot>
     <div class="container">
         <div class="card">

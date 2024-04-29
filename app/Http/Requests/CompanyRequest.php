@@ -32,7 +32,7 @@ class CompanyRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'logo' => ['image','mimes:jpg,png,jpeg', 
-            'dimensions:min_width=50,min_height=50,max_width=1000,max_height=1000', 
+            // 'dimensions:min_width=50,min_height=50,max_width=1000,max_height=1000', 
             'max:2048'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', $email],
             'description' => ['string', 'max:10000']

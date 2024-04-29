@@ -20,6 +20,19 @@ class RoleSeeder extends Seeder
         $role = Role::create(['name' => 'Super Admin']);
         $role->syncPermissions($permissions);
 
+        $names = [
+            'Company list',
+            'Company view',
+            'Company create',
+
+            'Employee list',
+            'Employee view',
+            'Employee create',
+        ];
+
+        $permissions = Permission::whereIn('name', $names)->pluck('id','id');
+        $webrole = Role::create(['name' => 'Manager']);
+        $webrole->syncPermissions($permissions);
         $role1 = Role::create(['name' => 'Employer']);
         $role2 = Role::create(['name' => 'Employee']);
     }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\{Employee, Company};
 use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeRequest;
+use Illuminate\Support\Facades\Gate;
+
 
 class EmployeeController extends Controller
 {
@@ -13,6 +15,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Employee::class);
         $employees = Employee::paginate(10);
         return view('employee.index', compact('employees'));
     }
@@ -22,6 +25,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Employee::class);
         $companies = Company::all()->pluck('name', 'id');
         return view('employee.create', compact('companies'));
     }
@@ -31,6 +35,7 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
+        Gate::authorize('create', Employee::class);
         $inputs = $request->validated();
         $employee = Employee::create($inputs);
         return redirect()->route('employees.index');
@@ -49,6 +54,7 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
+        Gate::authorize('update', $employee);
         $companies = Company::all()->pluck('name', 'id');
         return view('employee.edit', compact('employee', 'companies'));
     }
@@ -58,6 +64,7 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeRequest $request, Employee $employee)
     {
+        Gate::authorize('update', $employee);
         $inputs = $request->validated();
         $employee->update($inputs);
         return redirect()->route('employees.index');
@@ -68,6 +75,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
+        Gate::authorize('delete', $employee);
         $employee->delete();
         return redirect()->route('employees.index');
     }

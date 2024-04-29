@@ -53,7 +53,7 @@
             <div class="container mt-5">
                 <div class="card my-3">
                     <div class="card-header">
-                        <h2>{{$header}}</h2>
+                        {{$header}}
                     </div>
                 </div>
             </div>
